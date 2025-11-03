@@ -1,0 +1,69 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+using System.Numerics;
+
+class Result
+{
+
+    /*
+     * Complete the 'fibonacciModified' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER t1
+     *  2. INTEGER t2
+     *  3. INTEGER n
+     */
+        public static BigInteger fibonacciModified(int t1, int t2, int n)
+        {
+            if (n == 1) return new BigInteger(t1);
+            if (n == 2) return new BigInteger(t2);
+
+            BigInteger a = t1; // T_{i-2}
+            BigInteger b = t2; // T_{i-1}
+            BigInteger c = 0;
+
+            for (int i = 3; i <= n; i++)
+            {
+                c = a + b * b; // T_i
+                a = b;
+                b = c;
+            }
+            return b;
+        }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
+
+        int t1 = Convert.ToInt32(firstMultipleInput[0]);
+
+        int t2 = Convert.ToInt32(firstMultipleInput[1]);
+
+        int n = Convert.ToInt32(firstMultipleInput[2]);
+
+        BigInteger  result = Result.fibonacciModified(t1, t2, n);
+
+        textWriter.WriteLine(result);
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}
